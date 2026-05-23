@@ -149,6 +149,26 @@ body{
   }
 }
 
+
+.modal-close{
+  z-index:1001!important;
+  width:42px!important;
+  height:42px!important;
+  font-size:1.3rem!important;
+  background:rgba(0,0,0,0.65)!important;
+  border:1px solid rgba(255,255,255,0.08)!important;
+  backdrop-filter:blur(8px);
+}
+.modal-close:active{
+  transform:scale(0.94);
+}
+@media (max-width:768px){
+  .modal-close{
+    top:env(safe-area-inset-top,14px)!important;
+    right:14px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -454,7 +474,10 @@ function openModal(id) {
   const fill = document.getElementById('meterFill');
   fill.style.width = '0%';
   fill.style.background = c.color;
+  
   document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
   setTimeout(() => { fill.style.width = c.threat + '%'; }, 100);
 }
 
@@ -462,7 +485,10 @@ function closeModal(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
 }
 function closeModalBtn() {
+  
   document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
